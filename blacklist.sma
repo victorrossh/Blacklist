@@ -33,7 +33,7 @@ public plugin_init() {
 	RegisterHam(Ham_Touch, "weaponbox", "OnWeaponboxTouch");
 	
 	register_forward(FM_PlayerPreThink, "fw_PlayerPreThink");
-	register_forward(FM_Voice_SetClientListening, "fw_Voice_SetClientListening"); 
+	register_forward(FM_Voice_SetClientListening, "fw_Voice_SetClientListening");
 	
 	if (!dir_exists(CONFIG_FOLDER)) {
 		mkdir(CONFIG_FOLDER);
@@ -53,15 +53,15 @@ public clcmd_say(id) {
 	return (args[0] == '/') ? PLUGIN_HANDLED_MAIN : PLUGIN_HANDLED;
 }
 
-public fw_Voice_SetClientListening (receiver, sender, listen) {
-	if (receiver == sender) 
+public fw_Voice_SetClientListening(receiver, sender, listen) {
+	if (receiver == sender)
 		return FMRES_IGNORED;
 
-	if (g_bIsFrozen [sender]) { 
-		engfunc(EngFunc_SetClientListening, receiver, sender, false); 
-		return FMRES_SUPERCEDE; 
-	} 
-	return FMRES_IGNORED; 
+	if (g_bIsFrozen[sender]) {
+		engfunc(EngFunc_SetClientListening, receiver, sender, false);
+		return FMRES_SUPERCEDE;
+	}
+	return FMRES_IGNORED;
 }
 
 public client_connect(id) {
@@ -217,7 +217,7 @@ public fw_PlayerPreThink(id) {
 public OnPlayerSpawn(id) {
 	if (!is_user_connected(id) || !is_user_alive(id))
 		return HAM_IGNORED;
-	
+
 	set_task(0.1, "check_c4", id);
 	check_blacklist(id);
 	return HAM_IGNORED;
