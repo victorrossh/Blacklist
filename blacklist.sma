@@ -31,7 +31,6 @@ public plugin_init() {
 	register_clcmd("say_team", "clcmd_say");
 
 	RegisterHam(Ham_Spawn, "player", "OnPlayerSpawn", true);
-	register_event("CurWeapon", "HookCurWeapon", "be", "1=1");
 	
 	register_forward(FM_PlayerPreThink, "fw_PlayerPreThink");
 	
@@ -192,12 +191,6 @@ public apply_punishment(id) {
 		g_bBlockChat[id] = false;
 		engfunc(EngFunc_SetClientMaxspeed, id, 250.0);
 		set_pev(id, pev_flags, pev(id, pev_flags) & ~FL_FROZEN);
-	}
-}
-
-public HookCurWeapon(id) {
-	if (g_bIsFrozen[id] && is_user_alive(id)) {
-		engfunc(EngFunc_SetClientMaxspeed, id, 0.0);
 	}
 }
 
