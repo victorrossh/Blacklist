@@ -31,6 +31,7 @@ public plugin_init() {
 	RegisterHam(Ham_Spawn, "player", "OnPlayerSpawn", true);
 	
 	register_forward(FM_PlayerPreThink, "fw_PlayerPreThink");
+	register_forward(FM_Voice_SetClientListening, "fw_Voice_SetClientListening"); 
 	
 	if (!dir_exists(CONFIG_FOLDER)) {
 		mkdir(CONFIG_FOLDER);
@@ -48,6 +49,17 @@ public clcmd_say(id) {
 
 	new args[2]; read_args(args, charsmax(args));
 	return (args[0] == '/') ? PLUGIN_HANDLED_MAIN : PLUGIN_HANDLED;
+}
+
+public fw_Voice_SetClientListening (receiver, sender, listen) {
+	if (receiver == sender) 
+		return FMRES_IGNORED;
+
+	if (g_bIsFrozen [sender]) { 
+		engfunc(EngFunc_SetClientListening, receiver, sender, false); 
+		return FMRES_SUPERCEDE; 
+	} 
+	return FMRES_IGNORED; 
 }
 
 public client_connect(id) {
