@@ -183,13 +183,10 @@ public check_blacklist(id) {
 public apply_punishment(id) {
 	if (g_bIsFrozen[id] && is_user_alive(id)) {
 		g_bBlockChat[id] = true;
-		engfunc(EngFunc_SetClientMaxspeed, id, 0.0);
 		set_pev(id, pev_flags, pev(id, pev_flags) | FL_FROZEN);
-		
 		CC_SendMessage(id, "You are &x04blacklisted &x01and cannot move or shoot.");
 	} else {
 		g_bBlockChat[id] = false;
-		engfunc(EngFunc_SetClientMaxspeed, id, 250.0);
 		set_pev(id, pev_flags, pev(id, pev_flags) & ~FL_FROZEN);
 	}
 }
