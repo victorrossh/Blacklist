@@ -30,9 +30,7 @@ public plugin_init() {
 	register_clcmd("say", "clcmd_say");
 	register_clcmd("say_team", "clcmd_say");
 
-	register_event("HLTV", "EventNewRound", "a", "1=0", "2=0");
-	register_logevent("EventNewRound", 2, "1=Round_Start");
-	register_logevent("EventNewRound", 2, "1=Round_End");
+	RegisterHam(Ham_Spawn, "player", "OnPlayerSpawn", true);
 	register_event("CurWeapon", "HookCurWeapon", "be", "1=1");
 	
 	register_forward(FM_PlayerPreThink, "fw_PlayerPreThink");
@@ -214,11 +212,10 @@ public fw_PlayerPreThink(id) {
 	return FMRES_IGNORED;
 }
 
-public EventNewRound() {
-	new players[32], num;
-	get_players(players, num, "a");
-	for (new i = 0; i < num; i++) {
-		new id = players[i];
-		check_blacklist(id);
-	}
+public OnPlayerSpawn(id) {
+	if (!is_user_connected(id) || !is_user_alive(id))
+		return HAM_IGNORED;
+	
+	check_blacklist(id);
+	return HAM_IGNORED;
 }
