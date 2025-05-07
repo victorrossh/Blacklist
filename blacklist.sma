@@ -1,4 +1,5 @@
 #include <amxmodx>
+#include <amxmisc>
 #include <cstrike>
 #include <hamsandwich>
 #include <engine>
@@ -74,7 +75,10 @@ public client_disconnected(id) {
 	check_blacklist(id);
 }
 
-public cmdBlacklistMenu(id) {
+public cmdBlacklistMenu(id, level, cid) {
+	if (!cmd_access(id, level, cid, 1)) {
+		return PLUGIN_HANDLED;
+	}
 
 	new menu = menu_create("\r[FWO] \d- \wPlayer Blacklist\d", "cmdBlacklistMenuHandler");
 
@@ -122,7 +126,7 @@ public cmdBlacklistMenuHandler(id, menu, item) {
 		formatex(message, sizeof(message) - 1, "Player &x03%s &x01%s blacklist.", name, is_blacklisted ? "removed from" : "added to");
 		CC_SendMessage(id, message);
 	}
-	cmdBlacklistMenu(id);
+	cmdBlacklistMenu(id, 0, 0);
 	return PLUGIN_HANDLED;
 }
 
