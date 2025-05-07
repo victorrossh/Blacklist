@@ -1,8 +1,6 @@
 #include <amxmodx>
-#include <amxmisc>
-#include <cstrike>
 #include <engine>
-#include <fakemeta>
+#include <hamsandwich>
 #include <cromchat2>
 
 #define PLUGIN "Blacklist Menu"
