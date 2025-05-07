@@ -6,7 +6,7 @@
 
 #define PLUGIN "Blacklist Menu"
 #define VERSION "1.0"
-#define AUTHOR "ftl~"
+#define AUTHOR "ftl~ && WESPEOOTY"
 
 #pragma semicolon 1
 
