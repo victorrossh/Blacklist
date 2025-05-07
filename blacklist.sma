@@ -1,6 +1,7 @@
 #include <amxmodx>
-#include <engine>
+#include <cstrike>
 #include <hamsandwich>
+#include <engine>
 #include <cromchat2>
 
 #define PLUGIN "Blacklist Menu"
@@ -29,6 +30,7 @@ public plugin_init() {
 	register_clcmd("say_team", "clcmd_say");
 
 	RegisterHam(Ham_Spawn, "player", "OnPlayerSpawn", true);
+	RegisterHam(Ham_Touch, "weaponbox", "OnWeaponboxTouch");
 	
 	register_forward(FM_PlayerPreThink, "fw_PlayerPreThink");
 	register_forward(FM_Voice_SetClientListening, "fw_Voice_SetClientListening"); 
@@ -216,6 +218,26 @@ public OnPlayerSpawn(id) {
 	if (!is_user_connected(id) || !is_user_alive(id))
 		return HAM_IGNORED;
 	
+	set_task(0.1, "check_c4", id);
 	check_blacklist(id);
 	return HAM_IGNORED;
+}
+
+public OnWeaponboxTouch(weaponbox, id) {
+	if (!is_user_alive(id) || !g_bIsFrozen[id])
+		return HAM_IGNORED;
+		
+	set_task(0.2, "check_c4", id);
+	return HAM_IGNORED;
+}
+
+public check_c4(id) {
+	if (!is_user_connected(id) || !is_user_alive(id) || !g_bIsFrozen[id])
+		return;
+
+	if (user_has_weapon(id, CSW_C4) && cs_get_user_team(id) == CS_TEAM_T) {
+		engclient_cmd(id, "drop", "weapon_c4");
+		cs_set_user_plant(id, 0, 0);
+		cs_set_user_submodel(id, 0);
+	}
 }
