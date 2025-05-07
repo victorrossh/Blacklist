@@ -1,7 +1,6 @@
 #include <amxmodx>
 #include <amxmisc>
 #include <cstrike>
-#include <fun>
 #include <engine>
 #include <fakemeta>
 #include <cromchat2>
@@ -178,13 +177,11 @@ public check_blacklist(id) {
 
 public apply_punishment(id) {
 	if (g_bIsFrozen[id] && is_user_alive(id)) {
-		set_user_maxspeed(id, 0.0);
 		engfunc(EngFunc_SetClientMaxspeed, id, 0.0);
 		set_pev(id, pev_flags, pev(id, pev_flags) | FL_FROZEN);
 		
 		CC_SendMessage(id, "You are &x04blacklisted &x01and cannot move or shoot.");
 	} else {
-		set_user_maxspeed(id, 250.0);
 		engfunc(EngFunc_SetClientMaxspeed, id, 250.0);
 		set_pev(id, pev_flags, pev(id, pev_flags) & ~FL_FROZEN);
 	}
@@ -192,7 +189,6 @@ public apply_punishment(id) {
 
 public HookCurWeapon(id) {
 	if (g_bIsFrozen[id] && is_user_alive(id)) {
-		set_user_maxspeed(id, 0.0);
 		engfunc(EngFunc_SetClientMaxspeed, id, 0.0);
 	}
 }
