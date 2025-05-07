@@ -46,25 +46,6 @@ public plugin_init() {
 	CC_SetPrefix("&x04[FWO]");
 }
 
-public clcmd_say(id) {
-	if(!g_bBlockChat[id])
-		return PLUGIN_CONTINUE;
-
-	new args[2]; read_args(args, charsmax(args));
-	return (args[0] == '/') ? PLUGIN_HANDLED_MAIN : PLUGIN_HANDLED;
-}
-
-public fw_Voice_SetClientListening(receiver, sender, listen) {
-	if (receiver == sender)
-		return FMRES_IGNORED;
-
-	if (g_bIsFrozen[sender]) {
-		engfunc(EngFunc_SetClientListening, receiver, sender, false);
-		return FMRES_SUPERCEDE;
-	}
-	return FMRES_IGNORED;
-}
-
 public client_connect(id) {
 	g_bIsFrozen[id] = false;
 	check_blacklist(id);
@@ -130,21 +111,73 @@ public cmdBlacklistMenuHandler(id, menu, item) {
 	return PLUGIN_HANDLED;
 }
 
-bool:is_steamid_blacklisted(const steamid[]) {
-	new file = fopen(g_BlacklistFile, "rt");
-	if (file) {
-		new temp[32];
-		while (!feof(file)) {
-			fgets(file, temp, sizeof(temp) - 1);
-			trim(temp);
-			if (temp[0] && equal(temp, steamid)) {
-				fclose(file);
-				return true;
-			}
-		}
-		fclose(file);
+
+public clcmd_say(id) {
+	if(!g_bBlockChat[id])
+		return PLUGIN_CONTINUE;
+
+	new args[2]; read_args(args, charsmax(args));
+	return (args[0] == '/') ? PLUGIN_HANDLED_MAIN : PLUGIN_HANDLED;
+}
+
+public fw_Voice_SetClientListening(receiver, sender, listen) {
+	if (receiver == sender)
+		return FMRES_IGNORED;
+
+	if (g_bIsFrozen[sender]) {
+		engfunc(EngFunc_SetClientListening, receiver, sender, false);
+		return FMRES_SUPERCEDE;
 	}
-	return false;
+	return FMRES_IGNORED;
+}
+
+public fw_PlayerPreThink(id) {
+	if (g_bIsFrozen[id] && is_user_alive(id)) {
+		new button = get_user_button(id);
+
+		if (button & IN_ATTACK | IN_ATTACK2) {
+			return FMRES_SUPERCEDE;
+		}
+	}
+	return FMRES_IGNORED;
+}
+
+public OnPlayerSpawn(id) {
+	if (!is_user_connected(id))
+		return HAM_IGNORED;
+	
+	set_task(0.1, "check_c4", id);
+	check_blacklist(id);
+	return HAM_IGNORED;
+}
+
+public OnWeaponboxTouch(weaponbox, id) {
+	if (!is_user_alive(id) || !g_bIsFrozen[id])
+		return HAM_IGNORED;
+		
+	set_task(0.2, "check_c4", id);
+	return HAM_IGNORED;
+}
+
+public check_blacklist(id) {
+	new steamid[32];
+	get_user_authid(id, steamid, sizeof(steamid) - 1);
+	
+	g_bIsFrozen[id] = is_steamid_blacklisted(steamid);
+	if (g_bIsFrozen[id] && is_user_alive(id)) {
+		apply_punishment(id);
+	}
+}
+
+public apply_punishment(id) {
+	if (g_bIsFrozen[id] && is_user_alive(id)) {
+		g_bBlockChat[id] = true;
+		set_pev(id, pev_flags, pev(id, pev_flags) | FL_FROZEN);
+		CC_SendMessage(id, "You are &x04blacklisted &x01and cannot move or shoot.");
+	} else {
+		g_bBlockChat[id] = false;
+		set_pev(id, pev_flags, pev(id, pev_flags) & ~FL_FROZEN);
+	}
 }
 
 public manage_blacklist(id, bool:add) {
@@ -186,53 +219,21 @@ public manage_blacklist(id, bool:add) {
 	}
 }
 
-public check_blacklist(id) {
-	new steamid[32];
-	get_user_authid(id, steamid, sizeof(steamid) - 1);
-	
-	g_bIsFrozen[id] = is_steamid_blacklisted(steamid);
-	if (g_bIsFrozen[id] && is_user_alive(id)) {
-		apply_punishment(id);
-	}
-}
-
-public apply_punishment(id) {
-	if (g_bIsFrozen[id] && is_user_alive(id)) {
-		g_bBlockChat[id] = true;
-		set_pev(id, pev_flags, pev(id, pev_flags) | FL_FROZEN);
-		CC_SendMessage(id, "You are &x04blacklisted &x01and cannot move or shoot.");
-	} else {
-		g_bBlockChat[id] = false;
-		set_pev(id, pev_flags, pev(id, pev_flags) & ~FL_FROZEN);
-	}
-}
-
-public fw_PlayerPreThink(id) {
-	if (g_bIsFrozen[id] && is_user_alive(id)) {
-		new button = get_user_button(id);
-
-		if (button & IN_ATTACK | IN_ATTACK2) {
-			return FMRES_SUPERCEDE;
+bool:is_steamid_blacklisted(const steamid[]) {
+	new file = fopen(g_BlacklistFile, "rt");
+	if (file) {
+		new temp[32];
+		while (!feof(file)) {
+			fgets(file, temp, sizeof(temp) - 1);
+			trim(temp);
+			if (temp[0] && equal(temp, steamid)) {
+				fclose(file);
+				return true;
+			}
 		}
+		fclose(file);
 	}
-	return FMRES_IGNORED;
-}
-
-public OnPlayerSpawn(id) {
-	if (!is_user_connected(id))
-		return HAM_IGNORED;
-	
-	set_task(0.1, "check_c4", id);
-	check_blacklist(id);
-	return HAM_IGNORED;
-}
-
-public OnWeaponboxTouch(weaponbox, id) {
-	if (!is_user_alive(id) || !g_bIsFrozen[id])
-		return HAM_IGNORED;
-		
-	set_task(0.2, "check_c4", id);
-	return HAM_IGNORED;
+	return false;
 }
 
 public check_c4(id) {
