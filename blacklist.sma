@@ -27,6 +27,9 @@ public plugin_init() {
 	register_clcmd("say /blacklist", "cmdBlacklistMenu", ADMIN_IMMUNITY);
 	register_clcmd("say_team /blacklist", "cmdBlacklistMenu", ADMIN_IMMUNITY);
 	
+	register_clcmd("say", "clcmd_say");
+	register_clcmd("say_team", "clcmd_say");
+
 	register_event("HLTV", "EventNewRound", "a", "1=0", "2=0");
 	register_logevent("EventNewRound", 2, "1=Round_Start");
 	register_logevent("EventNewRound", 2, "1=Round_End");
