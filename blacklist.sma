@@ -215,9 +215,9 @@ public fw_PlayerPreThink(id) {
 }
 
 public OnPlayerSpawn(id) {
-	if (!is_user_connected(id) || !is_user_alive(id))
+	if (!is_user_connected(id))
 		return HAM_IGNORED;
-
+	
 	set_task(0.1, "check_c4", id);
 	check_blacklist(id);
 	return HAM_IGNORED;
