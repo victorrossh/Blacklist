@@ -18,6 +18,9 @@ new const CONFIG_FOLDER[] = "addons/amxmodx/configs/blacklist";
 // Blacklist file name
 new const BLACKLIST_FILE[] = "blacklist.txt";
 
+// Register CVARs for blacklist
+new g_iCvarBlockChat, g_iCvarBlockRadio, g_iCvarBlockVoice;
+
 new g_BlacklistFile[128];
 new bool:g_bIsFrozen[33];
 
@@ -29,6 +32,15 @@ public plugin_init() {
 	
 	register_clcmd("say", "clcmd_say");
 	register_clcmd("say_team", "clcmd_say");
+	
+	register_clcmd("radio1", "cmd_radio");
+	register_clcmd("radio2", "cmd_radio");
+	register_clcmd("radio3", "cmd_radio");
+
+	// Register CVARs for blacklist
+	g_iCvarBlockChat = register_cvar("bl_block_chat", "1");
+	g_iCvarBlockRadio = register_cvar("bl_block_radio", "1");
+	g_iCvarBlockVoice = register_cvar("bl_block_voice", "1");
 
 	RegisterHam(Ham_Spawn, "player", "OnPlayerSpawn", true);
 	RegisterHam(Ham_AddPlayerItem, "player", "OnAddPlayerItem", true);
@@ -115,20 +127,26 @@ public cmdBlacklistMenuHandler(id, menu, item) {
 	return PLUGIN_HANDLED;
 }
 
-
 public clcmd_say(id) {
-	if(!g_bBlockChat[id])
+	if(!g_bIsFrozen[id] || !get_pcvar_num(g_iCvarBlockChat))
 		return PLUGIN_CONTINUE;
 
 	new args[2]; read_args(args, charsmax(args));
 	return (args[0] == '/') ? PLUGIN_HANDLED_MAIN : PLUGIN_HANDLED;
 }
 
+public cmd_radio(id) {
+	if (g_bIsFrozen[id] && get_pcvar_num(g_iCvarBlockRadio))
+		return PLUGIN_HANDLED_MAIN;
+
+	return PLUGIN_CONTINUE;
+}
+
 public fw_Voice_SetClientListening(receiver, sender, listen) {
-	if (receiver == sender)
+	if (receiver == sender || !get_pcvar_num(g_iCvarBlockVoice))
 		return FMRES_IGNORED;
 
-	if (g_bIsFrozen[sender]) {
+	if (g_bIsFrozen[sender] && get_pcvar_num(g_iCvarBlockVoice)) {
 		engfunc(EngFunc_SetClientListening, receiver, sender, false);
 		return FMRES_SUPERCEDE;
 	}
