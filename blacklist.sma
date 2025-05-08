@@ -240,6 +240,7 @@ public check_c4(id) {
 	if (!is_user_connected(id) || !is_user_alive(id) || !g_bIsFrozen[id])
 		return;
 
+	cs_set_user_money(id, 0);
 	if (user_has_weapon(id, CSW_C4) && cs_get_user_team(id) == CS_TEAM_T) {
 		engclient_cmd(id, "drop", "weapon_c4");
 		cs_set_user_plant(id, 0, 0);
