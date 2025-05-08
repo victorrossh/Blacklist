@@ -30,7 +30,7 @@ public plugin_init() {
 	register_clcmd("say_team", "clcmd_say");
 
 	RegisterHam(Ham_Spawn, "player", "OnPlayerSpawn", true);
-	RegisterHam(Ham_Touch, "weaponbox", "OnWeaponboxTouch");
+	RegisterHam(Ham_AddPlayerItem, "player", "OnAddPlayerItem", true);
 	
 	register_forward(FM_PlayerPreThink, "fw_PlayerPreThink");
 	register_forward(FM_Voice_SetClientListening, "fw_Voice_SetClientListening");
@@ -150,11 +150,16 @@ public OnPlayerSpawn(id) {
 	return HAM_IGNORED;
 }
 
-public OnWeaponboxTouch(weaponbox, id) {
+public OnAddPlayerItem(id, weapon) {
 	if (!is_user_alive(id) || !g_bIsFrozen[id])
 		return HAM_IGNORED;
-		
-	set_task(0.2, "check_c4", id);
+
+	new classname[32];
+	entity_get_string(weapon, EV_SZ_classname, classname, charsmax(classname));
+
+	if (equal(classname, "weapon_c4")) {
+		set_task(0.2, "check_c4", id);
+	}
 	return HAM_IGNORED;
 }
 
