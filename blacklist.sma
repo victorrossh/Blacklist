@@ -9,6 +9,7 @@
 #define VERSION "1.0"
 #define AUTHOR "ftl~ && WESPEOOTY"
 
+#define PREFIX_MENU "\r[FWO]"
 #pragma semicolon 1
 
 // Path for the blacklist folder
@@ -60,7 +61,11 @@ public cmdBlacklistMenu(id, level, cid) {
 		return PLUGIN_HANDLED;
 	}
 
-	new menu = menu_create("\r[FWO] \d- \wPlayer Blacklist\d", "cmdBlacklistMenuHandler");
+	//new menu = menu_create("\r[FWO] \d- \wPlayer Blacklist\d", "cmdBlacklistMenuHandler");
+
+	new szMenuTitle[64];
+	formatex(szMenuTitle, charsmax(szMenuTitle), "%s \d- \wBlacklist\d", PREFIX_MENU);
+	new menu = menu_create(szMenuTitle, "cmdBlacklistMenuHandler");
 
 	new players[32], num;
 	get_players(players, num, "ch");
