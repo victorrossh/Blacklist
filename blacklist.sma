@@ -19,7 +19,6 @@ new const BLACKLIST_FILE[] = "blacklist.txt";
 
 new g_BlacklistFile[128];
 new bool:g_bIsFrozen[33];
-new bool:g_bBlockChat[33];
 
 public plugin_init() {
 	register_plugin(PLUGIN, VERSION, AUTHOR);
@@ -171,11 +170,9 @@ public check_blacklist(id) {
 
 public apply_punishment(id) {
 	if (g_bIsFrozen[id] && is_user_alive(id)) {
-		g_bBlockChat[id] = true;
 		set_pev(id, pev_flags, pev(id, pev_flags) | FL_FROZEN);
 		CC_SendMessage(id, "You are &x04blacklisted &x01and cannot move or shoot.");
 	} else {
-		g_bBlockChat[id] = false;
 		set_pev(id, pev_flags, pev(id, pev_flags) & ~FL_FROZEN);
 	}
 }
