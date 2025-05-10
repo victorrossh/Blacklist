@@ -12,17 +12,13 @@
 #define PREFIX_MENU "\r[FWO]"
 #pragma semicolon 1
 
-// Path for the blacklist folder
-new const CONFIG_FOLDER[] = "addons/amxmodx/configs/blacklist";
-
-// Blacklist file name
-new const BLACKLIST_FILE[] = "blacklist.txt";
+// Path for the blacklist file
+new const CONFIG_FOLDER[] = "addons/amxmodx/configs/blacklist/blacklist.txt";
 
 // Register CVARs for blacklist
 new g_iCvarBlockChat, g_iCvarBlockRadio, g_iCvarBlockVoice;
-
-new g_BlacklistFile[128];
 new bool:g_bIsFrozen[33];
+new Array:g_BlacklistArray;
 
 public plugin_init() {
 	register_plugin(PLUGIN, VERSION, AUTHOR);
@@ -48,11 +44,10 @@ public plugin_init() {
 	register_forward(FM_PlayerPreThink, "fw_PlayerPreThink");
 	register_forward(FM_Voice_SetClientListening, "fw_Voice_SetClientListening");
 	
-	if (!dir_exists(CONFIG_FOLDER)) {
-		mkdir(CONFIG_FOLDER);
-	}
-	
-	formatex(g_BlacklistFile, sizeof(g_BlacklistFile) - 1, "%s/%s", CONFIG_FOLDER, BLACKLIST_FILE);
+	new directory[128];
+	formatex(directory, sizeof(directory) - 1, "addons/amxmodx/configs/blacklist");
+	if (!dir_exists(directory))
+		mkdir(directory);
 
 	//Chat prefix
 	CC_SetPrefix("&x04[FWO]");
@@ -60,6 +55,15 @@ public plugin_init() {
 
 public plugin_cfg() {
 	register_dictionary("black_list.txt");
+	
+	if(g_BlacklistArray == Invalid_Array) {
+		g_BlacklistArray = ArrayCreate(32, 1);
+	}
+	load_blacklist();
+}
+
+public plugin_end() {
+	save_blacklist();
 }
 
 public client_connect(id) {
@@ -70,6 +74,17 @@ public client_connect(id) {
 public client_disconnected(id) {
 	g_bIsFrozen[id] = false;
 	check_blacklist(id);
+}
+
+public bool:is_blacklisted(id) {
+	if(g_BlacklistArray == Invalid_Array || ArraySize(g_BlacklistArray) == 0)
+		return false;
+		
+	new steamid[32];
+	get_user_authid(id, steamid, charsmax(steamid));
+
+	new index = ArrayFindString(g_BlacklistArray, steamid);
+	return (index != -1);
 }
 
 public cmdBlacklistMenu(id, level, cid) {
@@ -87,16 +102,15 @@ public cmdBlacklistMenu(id, level, cid) {
 	get_players(players, num, "ch");
 	
 	if (num > 0) {
-		new name[32], steamid[32], item_text[64], player_id[3];
+		new name[32], item_text[64], player_id[3];
 		for (new i = 0; i < num; i++) {
 			new player = players[i];
 			get_user_name(player, name, sizeof(name) - 1);
-			get_user_authid(player, steamid, sizeof(steamid) - 1);
 			
 			formatex(player_id, sizeof(player_id) - 1, "%d", player);
-			new bool:is_blacklisted = is_steamid_blacklisted(steamid);
+			new bool:player_is_blacklisted = is_blacklisted(player);
 			
-			formatex(item_text, sizeof(item_text) - 1, is_blacklisted ? "%s %L" : "%s", name, id, "MENU_STATUS");
+			formatex(item_text, sizeof(item_text) - 1, player_is_blacklisted ? "%s %L" : "%s", name, id, "MENU_STATUS");
 			menu_additem(menu, item_text, player_id);
 		}
 	} else {
@@ -120,14 +134,13 @@ public cmdBlacklistMenuHandler(id, menu, item) {
 	
 	new player = str_to_num(player_id);
 	if (is_user_connected(player)) {
-		new steamid[32], name[32], message[128];
-		get_user_authid(player, steamid, sizeof(steamid) - 1);
+		new name[32], message[128];
 		get_user_name(player, name, sizeof(name) - 1);
 		
-		new bool:is_blacklisted = is_steamid_blacklisted(steamid);
-		manage_blacklist(player, !is_blacklisted);
+		new bool:player_is_blacklisted = is_blacklisted(player);
+		manage_blacklist(player, !player_is_blacklisted);
 		
-		formatex(message, sizeof(message) - 1, "%L", id, is_blacklisted ? "MSG_REMOVED" : "MSG_ADDED", name);
+		formatex(message, sizeof(message) - 1, "%L", id, player_is_blacklisted ? "MSG_REMOVED" : "MSG_ADDED", name);
 		CC_SendMessage(id, message);
 	}
 	cmdBlacklistMenu(id, 0, 0);
@@ -194,10 +207,7 @@ public OnAddPlayerItem(id, weapon) {
 }
 
 public check_blacklist(id) {
-	new steamid[32];
-	get_user_authid(id, steamid, sizeof(steamid) - 1);
-	
-	g_bIsFrozen[id] = is_steamid_blacklisted(steamid);
+	g_bIsFrozen[id] = is_blacklisted(id);
 	if (g_bIsFrozen[id] && is_user_alive(id)) {
 		apply_punishment(id);
 	}
@@ -212,60 +222,59 @@ public apply_punishment(id) {
 	}
 }
 
-public manage_blacklist(id, bool:add) {
-	new steamid[32];
-	get_user_authid(id, steamid, sizeof(steamid) - 1);
+public manage_blacklist(id, bool:should_be_blacklisted) {
+	should_be_blacklisted ? blacklist_player(id) : remove_blacklist(id);
 	
-	if (add && !is_steamid_blacklisted(steamid)) {
-		new file = fopen(g_BlacklistFile, "at");
-		if (file) {
-			fprintf(file, "%s^n", steamid);
-			fclose(file);
-		}
-	} else if (!add && is_steamid_blacklisted(steamid)) {
-		new lines[32][32], line_count = 0;
-		new file = fopen(g_BlacklistFile, "rt");
-		if (file) {
-			new line[32];
-			while (!feof(file) && line_count < 32) {
-				fgets(file, line, sizeof(line) - 1);
-				trim(line);
-				if (line[0] && !equal(line, steamid)) {
-					copy(lines[line_count++], sizeof(lines[]) - 1, line);
-				}
-			}
-			fclose(file);
-		}
-		file = fopen(g_BlacklistFile, "wt");
-		if (file) {
-			for (new i = 0; i < line_count; i++) {
-				fprintf(file, "%s^n", lines[i]);
-			}
-			fclose(file);
-		}
-	}
-	
-	g_bIsFrozen[id] = add;
+	g_bIsFrozen[id] = should_be_blacklisted;
 	if (is_user_alive(id)) {
 		apply_punishment(id);
 	}
 }
 
-bool:is_steamid_blacklisted(const steamid[]) {
-	new file = fopen(g_BlacklistFile, "rt");
+public load_blacklist() {
+	new file = fopen(CONFIG_FOLDER, "rt");
 	if (file) {
-		new temp[32];
+		new steamid[32];
 		while (!feof(file)) {
-			fgets(file, temp, sizeof(temp) - 1);
-			trim(temp);
-			if (temp[0] && equal(temp, steamid)) {
-				fclose(file);
-				return true;
+			fgets(file, steamid, charsmax(steamid));
+			trim(steamid);
+			if (steamid[0]) {
+				ArrayPushString(g_BlacklistArray, steamid);
 			}
 		}
 		fclose(file);
 	}
-	return false;
+}
+
+public save_blacklist() {
+	new file = fopen(CONFIG_FOLDER, "wt");
+	if (file) {
+		for (new i = 0; i < ArraySize(g_BlacklistArray); i++) {
+			new steamid[32];
+			ArrayGetString(g_BlacklistArray, i, steamid, charsmax(steamid));
+			fprintf(file, "%s^n", steamid);
+		}
+		fclose(file);
+	}
+}
+
+public blacklist_player(id){
+	new steamid[32];
+	get_user_authid(id, steamid, charsmax(steamid));
+	ArrayPushString(g_BlacklistArray, steamid);
+}
+
+public remove_blacklist(id) {
+	if(g_BlacklistArray == Invalid_Array || ArraySize(g_BlacklistArray) == 0)
+		return;
+		
+	new steamid[32];
+	get_user_authid(id, steamid, charsmax(steamid));
+	
+	new index = ArrayFindString(g_BlacklistArray, steamid);
+	if(index != -1) {
+		ArrayDeleteItem(g_BlacklistArray, index);
+	}
 }
 
 public check_c4(id) {
