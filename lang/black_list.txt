@@ -5,7 +5,7 @@ MENU_STATUS = \r[BLACKLIST]
 MENU_NO_PLAYERS = No players found
 MSG_ADDED = Player &x04%s &x01added to &x04blacklist&x01.
 MSG_REMOVED = Player &x04%s &x01removed from &x04blacklist&x01.
-MSG_PUNISHMENT = You are blacklisted and cannot move or shoot.
+MSG_PUNISHMENT = You are in the &x03BLACKLIST &x01and all interactions have been blocked.
 
 [bp]
 
@@ -14,7 +14,7 @@ MENU_STATUS = \r[BLACKLIST]
 MENU_NO_PLAYERS = Nenhum jogador encontrado
 MSG_ADDED = Jogador &x04%s &x01adicionado à &x04blacklist&x01.
 MSG_REMOVED = Jogador &x04%s &x01removido da &x04blacklist&x01.
-MSG_PUNISHMENT = Você está na blacklist e não pode se mover nem atirar.
+MSG_PUNISHMENT = Você está na &x03BLACKLIST &x01e todas as interações foram bloqueadas.
 
 [ro]
 
@@ -23,7 +23,7 @@ MENU_STATUS = \r[LISTA NEAGRĂ]
 MENU_NO_PLAYERS = Niciun jucător găsit
 MSG_ADDED = Jucătorul &x04%s &x01a fost adăugat pe &x04lista neagră&x01.
 MSG_REMOVED = Jucătorul &x04%s &x01a fost eliminat de pe &x04lista neagră&x01.
-MSG_PUNISHMENT = Ești pe lista neagră și nu te poți mișca sau trage.
+MSG_PUNISHMENT = Ești pe &x03LISTA NEAGRĂ &x01și toate interacțiunile au fost blocate.
 
 [pt]
 
@@ -32,7 +32,7 @@ MENU_STATUS = \r[BLACKLIST]
 MENU_NO_PLAYERS = Nenhum jogador encontrado
 MSG_ADDED = Jogador &x04%s &x01adicionado à &x04blacklist&x01.
 MSG_REMOVED = Jogador &x04%s &x01removido da &x04blacklist&x01.
-MSG_PUNISHMENT = Você está na blacklist e não pode se mover nem atirar.
+MSG_PUNISHMENT = Você está na &x03BLACKLIST &x01e todas as interações foram bloqueadas.
 
 [es]
 
@@ -41,7 +41,7 @@ MENU_STATUS = \r[LISTA NEGRA]
 MENU_NO_PLAYERS = No se encontraron jugadores
 MSG_ADDED = Jugador &x04%s &x01añadido a la &x04lista negra&x01.
 MSG_REMOVED = Jugador &x04%s &x01eliminado de la &x04lista negra&x01.
-MSG_PUNISHMENT = Estás en la lista negra y no puedes moverte ni disparar.
+MSG_PUNISHMENT = Estás en la &x03LISTA NEGRA &x01y todas las interacciones han sido bloqueadas.
 
 [de]
 
@@ -50,7 +50,7 @@ MENU_STATUS = \r[BLACKLIST]
 MENU_NO_PLAYERS = Keine Spieler gefunden
 MSG_ADDED = Spieler &x04%s &x01zur &x04Blacklist &x01hinzugefügt.
 MSG_REMOVED = Spieler &x04%s &x01von der &x04Blacklist &x01entfernt.
-MSG_PUNISHMENT = Du bist auf der Blacklist und kannst dich nicht bewegen oder schießen.
+MSG_PUNISHMENT = Du bist auf der &x03BLACKLIST &x01und alle Interaktionen wurden blockiert.
 
 [sr]
 
@@ -59,7 +59,7 @@ MENU_STATUS = \r[CRNA LISTA]
 MENU_NO_PLAYERS = Nema pronađenih igrača
 MSG_ADDED = Igrač &x04%s &x01dodat na &x04crnu listu&x01.
 MSG_REMOVED = Igrač &x04%s &x01uklonjen sa &x04crne liste&x01.
-MSG_PUNISHMENT = Na crnoj si listi i ne možeš se kretati niti pucati.
+MSG_PUNISHMENT = Na &x03CRNOJ LISTI &x01si i sve interakcije su blokirane.
 
 [tr]
 
@@ -68,7 +68,7 @@ MENU_STATUS = \r[KARA LİSTE]
 MENU_NO_PLAYERS = Oyuncu bulunamadı
 MSG_ADDED = Oyuncu &x04%s &x01kara listeye &x04eklendi&x01.
 MSG_REMOVED = Oyuncu &x04%s &x01kara listeden &x04çıkarıldı&x01.
-MSG_PUNISHMENT = Kara listedesin ve hareket edemez ya da ateş edemezsin.
+MSG_PUNISHMENT = &x03KARA LİSTE&x01desin ve tüm etkileşimler engellendi.
 
 [fr]
 
@@ -77,7 +77,7 @@ MENU_STATUS = \r[LISTE NOIRE]
 MENU_NO_PLAYERS = Aucun joueur trouvé
 MSG_ADDED = Joueur &x04%s &x01ajouté à la &x04liste noire&x01.
 MSG_REMOVED = Joueur &x04%s &x01retiré de la &x04liste noire&x01.
-MSG_PUNISHMENT = Tu es sur la liste noire et ne peux ni bouger ni tirer.
+MSG_PUNISHMENT = Tu es sur la &x03LISTE NOIRE &x01et toutes les interactions ont été bloquées.
 
 [sv]
 
@@ -86,7 +86,7 @@ MENU_STATUS = \r[SVARTLISTA]
 MENU_NO_PLAYERS = Inga spelare hittades
 MSG_ADDED = Spelare &x04%s &x01tillagd på &x04svartlistan&x01.
 MSG_REMOVED = Spelare &x04%s &x01borttagen från &x04svartlistan&x01.
-MSG_PUNISHMENT = Du är svartlistad och kan inte röra dig eller skjuta.
+MSG_PUNISHMENT = Du är på &x03SVARTLISTAN &x01och alla interaktioner har blockerats.
 
 [da]
 
@@ -95,7 +95,7 @@ MENU_STATUS = \r[BLACKLIST]
 MENU_NO_PLAYERS = Ingen spillere fundet
 MSG_ADDED = Spiller &x04%s &x01tilføjet til &x04blacklist&x01.
 MSG_REMOVED = Spiller &x04%s &x01fjernet fra &x04blacklist&x01.
-MSG_PUNISHMENT = Du er på blacklist og kan ikke bevæge dig eller skyde.
+MSG_PUNISHMENT = Du er på &x03BLACKLIST &x01og alle interaktioner er blokeret.
 
 [pl]
 
@@ -104,7 +104,7 @@ MENU_STATUS = \r[CZARNA LISTA]
 MENU_NO_PLAYERS = Nie znaleziono graczy
 MSG_ADDED = Gracz &x04%s &x01dodany do &x04czarnej listy&x01.
 MSG_REMOVED = Gracz &x04%s &x01usunięty z &x04czarnej listy&x01.
-MSG_PUNISHMENT = Jesteś na czarnej liście i nie możesz się poruszać ani strzelać.
+MSG_PUNISHMENT = Jesteś na &x03CZARNEJ LIŚCIE &x01i wszystkie interakcje zostały zablokowane.
 
 [nl]
 
@@ -113,7 +113,7 @@ MENU_STATUS = \r[ZWARTE LIJST]
 MENU_NO_PLAYERS = Geen spelers gevonden
 MSG_ADDED = Speler &x04%s &x01toegevoegd aan &x04zwarte lijst&x01.
 MSG_REMOVED = Speler &x04%s &x01verwijderd van &x04zwarte lijst&x01.
-MSG_PUNISHMENT = Je staat op de zwarte lijst en kunt niet bewegen of schieten.
+MSG_PUNISHMENT = Je staat op de &x03ZWARTE LIJST &x01en alle interacties zijn geblokkeerd.
 
 [cz]
 
@@ -122,7 +122,7 @@ MENU_STATUS = \r[ČERNÁ LISTINA]
 MENU_NO_PLAYERS = Žádní hráči nenalezeni
 MSG_ADDED = Hráč &x04%s &x01přidán na &x04černou listinu&x01.
 MSG_REMOVED = Hráč &x04%s &x01odstraněn z &x04černé listiny&x01.
-MSG_PUNISHMENT = Jsi na černé listině a nemůžeš se hýbat ani střílet.
+MSG_PUNISHMENT = Jsi na &x03ČERNÉ LISTINĚ &x01a všechny interakce byly blokovány.
 
 [fi]
 
@@ -131,7 +131,7 @@ MENU_STATUS = \r[MUSTA LISTA]
 MENU_NO_PLAYERS = Pelaajia ei löytynyt
 MSG_ADDED = Pelaaja &x04%s &x01lisätty &x04mustalle listalle&x01.
 MSG_REMOVED = Pelaaja &x04%s &x01poistettu &x04mustalta listalta&x01.
-MSG_PUNISHMENT = Olet mustalla listalla etkä voi liikkua tai ampua.
+MSG_PUNISHMENT = Olet &x03MUSTALLA LISTALLA &x01ja kaikki toiminnot on estetty.
 
 [bg]
 
@@ -140,7 +140,7 @@ MENU_STATUS = \r[ЧЕРЕН СПИСЪК]
 MENU_NO_PLAYERS = Няма намерени играчи
 MSG_ADDED = Играч &x04%s &x01добавен в &x04черния списък&x01.
 MSG_REMOVED = Играч &x04%s &x01премахнат от &x04черния списък&x01.
-MSG_PUNISHMENT = В черния списък си и не можеш да се движиш или стреляш.
+MSG_PUNISHMENT = В &x03ЧЕРНИЯ СПИСЪК &x01си и всички взаимодействия са блокирани.
 
 [hu]
 
@@ -149,7 +149,7 @@ MENU_STATUS = \r[FEKETELISTA]
 MENU_NO_PLAYERS = Nem található játékos
 MSG_ADDED = Játékos &x04%s &x01hozzáadva a &x04feketelistához&x01.
 MSG_REMOVED = Játékos &x04%s &x01eltávolítva a &x04feketelistáról&x01.
-MSG_PUNISHMENT = Feketelistán vagy, nem mozoghatsz és nem lőhetsz.
+MSG_PUNISHMENT = A &x03FEKETELISTÁN &x01vagy és minden interakció blokkolva.
 
 [lt]
 
@@ -158,7 +158,7 @@ MENU_STATUS = \r[JUODASIS SĄRAŠAS]
 MENU_NO_PLAYERS = Žaidėjų nerasta
 MSG_ADDED = Žaidėjas &x04%s &x01pridėtas prie &x04juodojo sąrašo&x01.
 MSG_REMOVED = Žaidėjas &x04%s &x01pašalintas iš &x04juodojo sąrašo&x01.
-MSG_PUNISHMENT = Esi juodajame sąraše ir negali judėti ar šaudyti.
+MSG_PUNISHMENT = Esate &x03JUODAJAME SĄRAŠE &x01ir visos sąveikos užblokuotos.
 
 [sk]
 
@@ -167,7 +167,7 @@ MENU_STATUS = \r[ČIERNA LISTINA]
 MENU_NO_PLAYERS = Žiadni hráči nenájdení
 MSG_ADDED = Hráč &x04%s &x01pridaný na &x04čiernu listinu&x01.
 MSG_REMOVED = Hráč &x04%s &x01odstránený z &x04čiernej listiny&x01.
-MSG_PUNISHMENT = Si na čiernej listine a nemôžeš sa hýbať ani strieľať.
+MSG_PUNISHMENT = Si na &x03ČIERNEJ LISTINE &x01a všetky interakcie sú zablokované.
 
 [mk]
 
@@ -176,7 +176,7 @@ MENU_STATUS = \r[ЦРНА ЛИСТА]
 MENU_NO_PLAYERS = Не се пронајдени играчи
 MSG_ADDED = Играч &x04%s &x01додаден на &x04црната листа&x01.
 MSG_REMOVED = Играч &x04%s &x01отстранет од &x04црната листа&x01.
-MSG_PUNISHMENT = На црната лиsta си и не можеш да се движиш или пукаш.
+MSG_PUNISHMENT = На &x03ЦРНАТА ЛИСТА &x01си и сите интеракции се блокирани.
 
 [hr]
 
@@ -185,7 +185,7 @@ MENU_STATUS = \r[CRNA LISTA]
 MENU_NO_PLAYERS = Nema pronađenih igrača
 MSG_ADDED = Igrač &x04%s &x01dodan na &x04crnu listu&x01.
 MSG_REMOVED = Igrač &x04%s &x01uklonjen s &x04crne liste&x01.
-MSG_PUNISHMENT = Na crnoj si listi i ne možeš se kretati niti pucati.
+MSG_PUNISHMENT = Na &x03CRNOJ LISTI &x01si i sve interakcije su blokirane.
 
 [bs]
 
@@ -194,7 +194,7 @@ MENU_STATUS = \r[CRNA LISTA]
 MENU_NO_PLAYERS = Nema pronađenih igrača
 MSG_ADDED = Igrač &x04%s &x01dodan na &x04crnu listu&x01.
 MSG_REMOVED = Igrač &x04%s &x01uklonjen sa &x04crne liste&x01.
-MSG_PUNISHMENT = Na crnoj si listi i ne možeš se kretati niti pucati.
+MSG_PUNISHMENT = Na &x03CRNOJ LISTI &x01si i sve interakcije su blokirane.
 
 [ru]
 
@@ -203,7 +203,7 @@ MENU_STATUS = \r[ЧЁРНЫЙ СПИСОК]
 MENU_NO_PLAYERS = Игроки не найдены
 MSG_ADDED = Игрок &x04%s &x01добавлен в &x04чёрный список&x01.
 MSG_REMOVED = Игрок &x04%s &x01удалён из &x04чёрного списка&x01.
-MSG_PUNISHMENT = Ты в чёрном списке и не можешь двигаться или стрелять.
+MSG_PUNISHMENT = Ты в &x03ЧЁРНОМ СПИСКЕ &x01и все действия заблокированы.
 
 [cn]
 
@@ -212,7 +212,7 @@ MENU_STATUS = \r[黑名单]
 MENU_NO_PLAYERS = 未找到玩家
 MSG_ADDED = 玩家 &x04%s &x01已添加到 &x04黑名单&x01。
 MSG_REMOVED = 玩家 &x04%s &x01已从 &x04黑名单&x01移除。
-MSG_PUNISHMENT = 你在黑名单中，无法移动或射击。
+MSG_PUNISHMENT = 你在 &x03黑名单 &x01中，所有交互已被阻止。
 
 [al]
 
@@ -221,4 +221,4 @@ MENU_STATUS = \r[LISTA E ZEZË]
 MENU_NO_PLAYERS = Asnjë lojtar i gjetur
 MSG_ADDED = Lojtari &x04%s &x01u shtua në &x04listën e zezë&x01.
 MSG_REMOVED = Lojtari &x04%s &x01u hoq nga &x04lista e zezë&x01.
-MSG_PUNISHMENT = Je në listën e zezë dhe nuk mund të lëvizësh ose të gjuash.
+MSG_PUNISHMENT = Je në &x03LISTËN E ZEZË &x01dhe të gjitha ndërveprimet janë bllokuar.
