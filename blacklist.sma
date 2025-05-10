@@ -96,7 +96,7 @@ public cmdBlacklistMenu(id, level, cid) {
 			formatex(player_id, sizeof(player_id) - 1, "%d", player);
 			new bool:is_blacklisted = is_steamid_blacklisted(steamid);
 			
-			formatex(item_text, sizeof(item_text) - 1, "%s %L", name, is_blacklisted ? "MENU_STATUS" : "", id);
+			formatex(item_text, sizeof(item_text) - 1, is_blacklisted ? "%s %L" : "%s", name, id, "MENU_STATUS");
 			menu_additem(menu, item_text, player_id);
 		}
 	} else {
