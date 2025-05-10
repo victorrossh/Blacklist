@@ -58,6 +58,10 @@ public plugin_init() {
 	CC_SetPrefix("&x04[FWO]");
 }
 
+public plugin_cfg() {
+	register_dictionary("black_list.txt");
+}
+
 public client_connect(id) {
 	g_bIsFrozen[id] = false;
 	check_blacklist(id);
@@ -76,7 +80,7 @@ public cmdBlacklistMenu(id, level, cid) {
 	//new menu = menu_create("\r[FWO] \d- \wPlayer Blacklist\d", "cmdBlacklistMenuHandler");
 
 	new szMenuTitle[64];
-	formatex(szMenuTitle, charsmax(szMenuTitle), "%s \d- \wBlacklist\d", PREFIX_MENU);
+	formatex(szMenuTitle, charsmax(szMenuTitle), "%L", id, "MENU_TITLE", PREFIX_MENU);
 	new menu = menu_create(szMenuTitle, "cmdBlacklistMenuHandler");
 
 	new players[32], num;
@@ -91,11 +95,14 @@ public cmdBlacklistMenu(id, level, cid) {
 			
 			formatex(player_id, sizeof(player_id) - 1, "%d", player);
 			new bool:is_blacklisted = is_steamid_blacklisted(steamid);
-			formatex(item_text, sizeof(item_text) - 1, "%s %s", name, is_blacklisted ? "\r[BLACKLIST]" : "");
+			
+			formatex(item_text, sizeof(item_text) - 1, "%s %L", name, is_blacklisted ? "MENU_STATUS" : "", id);
 			menu_additem(menu, item_text, player_id);
 		}
 	} else {
-		menu_additem(menu, "No players found", "");
+		new szNoPlayers[32];
+		formatex(szNoPlayers, charsmax(szNoPlayers), "%L", id, "MENU_NO_PLAYERS");
+		menu_additem(menu, szNoPlayers, "");
 	}
 	
 	menu_display(id, menu, 0);
@@ -120,7 +127,7 @@ public cmdBlacklistMenuHandler(id, menu, item) {
 		new bool:is_blacklisted = is_steamid_blacklisted(steamid);
 		manage_blacklist(player, !is_blacklisted);
 		
-		formatex(message, sizeof(message) - 1, "Player &x03%s &x01%s blacklist.", name, is_blacklisted ? "removed from" : "added to");
+		formatex(message, sizeof(message) - 1, "%L", id, is_blacklisted ? "MSG_REMOVED" : "MSG_ADDED", name);
 		CC_SendMessage(id, message);
 	}
 	cmdBlacklistMenu(id, 0, 0);
@@ -199,7 +206,7 @@ public check_blacklist(id) {
 public apply_punishment(id) {
 	if (g_bIsFrozen[id] && is_user_alive(id)) {
 		set_pev(id, pev_flags, pev(id, pev_flags) | FL_FROZEN);
-		CC_SendMessage(id, "You are &x04blacklisted &x01and cannot move or shoot.");
+		CC_SendMessage(id, "%L", id, "MSG_PUNISHMENT");
 	} else {
 		set_pev(id, pev_flags, pev(id, pev_flags) & ~FL_FROZEN);
 	}

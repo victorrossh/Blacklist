@@ -1,0 +1,224 @@
+[en]
+
+MENU_TITLE = %s\d - \wPlayer Blacklist
+MENU_STATUS = \r[BLACKLIST]
+MENU_NO_PLAYERS = No players found
+MSG_ADDED = Player &x04%s &x01added to &x04blacklist&x01.
+MSG_REMOVED = Player &x04%s &x01removed from &x04blacklist&x01.
+MSG_PUNISHMENT = You are blacklisted and cannot move or shoot.
+
+[bp]
+
+MENU_TITLE = %s\d - \wBlacklist de Jogadores
+MENU_STATUS = \r[BLACKLIST]
+MENU_NO_PLAYERS = Nenhum jogador encontrado
+MSG_ADDED = Jogador &x04%s &x01adicionado à &x04blacklist&x01.
+MSG_REMOVED = Jogador &x04%s &x01removido da &x04blacklist&x01.
+MSG_PUNISHMENT = Você está na blacklist e não pode se mover nem atirar.
+
+[ro]
+
+MENU_TITLE = %s\d - \wLista Neagră de Jucători
+MENU_STATUS = \r[LISTA NEAGRĂ]
+MENU_NO_PLAYERS = Niciun jucător găsit
+MSG_ADDED = Jucătorul &x04%s &x01a fost adăugat pe &x04lista neagră&x01.
+MSG_REMOVED = Jucătorul &x04%s &x01a fost eliminat de pe &x04lista neagră&x01.
+MSG_PUNISHMENT = Ești pe lista neagră și nu te poți mișca sau trage.
+
+[pt]
+
+MENU_TITLE = %s\d - \wBlacklist de Jogadores
+MENU_STATUS = \r[BLACKLIST]
+MENU_NO_PLAYERS = Nenhum jogador encontrado
+MSG_ADDED = Jogador &x04%s &x01adicionado à &x04blacklist&x01.
+MSG_REMOVED = Jogador &x04%s &x01removido da &x04blacklist&x01.
+MSG_PUNISHMENT = Você está na blacklist e não pode se mover nem atirar.
+
+[es]
+
+MENU_TITLE = %s\d - \wLista Negra de Jugadores
+MENU_STATUS = \r[LISTA NEGRA]
+MENU_NO_PLAYERS = No se encontraron jugadores
+MSG_ADDED = Jugador &x04%s &x01añadido a la &x04lista negra&x01.
+MSG_REMOVED = Jugador &x04%s &x01eliminado de la &x04lista negra&x01.
+MSG_PUNISHMENT = Estás en la lista negra y no puedes moverte ni disparar.
+
+[de]
+
+MENU_TITLE = %s\d - \wSpieler-Blacklist
+MENU_STATUS = \r[BLACKLIST]
+MENU_NO_PLAYERS = Keine Spieler gefunden
+MSG_ADDED = Spieler &x04%s &x01zur &x04Blacklist &x01hinzugefügt.
+MSG_REMOVED = Spieler &x04%s &x01von der &x04Blacklist &x01entfernt.
+MSG_PUNISHMENT = Du bist auf der Blacklist und kannst dich nicht bewegen oder schießen.
+
+[sr]
+
+MENU_TITLE = %s\d - \wCrna Lista Igrača
+MENU_STATUS = \r[CRNA LISTA]
+MENU_NO_PLAYERS = Nema pronađenih igrača
+MSG_ADDED = Igrač &x04%s &x01dodat na &x04crnu listu&x01.
+MSG_REMOVED = Igrač &x04%s &x01uklonjen sa &x04crne liste&x01.
+MSG_PUNISHMENT = Na crnoj si listi i ne možeš se kretati niti pucati.
+
+[tr]
+
+MENU_TITLE = %s\d - \wOyuncu Kara Listesi
+MENU_STATUS = \r[KARA LİSTE]
+MENU_NO_PLAYERS = Oyuncu bulunamadı
+MSG_ADDED = Oyuncu &x04%s &x01kara listeye &x04eklendi&x01.
+MSG_REMOVED = Oyuncu &x04%s &x01kara listeden &x04çıkarıldı&x01.
+MSG_PUNISHMENT = Kara listedesin ve hareket edemez ya da ateş edemezsin.
+
+[fr]
+
+MENU_TITLE = %s\d - \wListe Noire des Joueurs
+MENU_STATUS = \r[LISTE NOIRE]
+MENU_NO_PLAYERS = Aucun joueur trouvé
+MSG_ADDED = Joueur &x04%s &x01ajouté à la &x04liste noire&x01.
+MSG_REMOVED = Joueur &x04%s &x01retiré de la &x04liste noire&x01.
+MSG_PUNISHMENT = Tu es sur la liste noire et ne peux ni bouger ni tirer.
+
+[sv]
+
+MENU_TITLE = %s\d - \wSpelarens Svartlista
+MENU_STATUS = \r[SVARTLISTA]
+MENU_NO_PLAYERS = Inga spelare hittades
+MSG_ADDED = Spelare &x04%s &x01tillagd på &x04svartlistan&x01.
+MSG_REMOVED = Spelare &x04%s &x01borttagen från &x04svartlistan&x01.
+MSG_PUNISHMENT = Du är svartlistad och kan inte röra dig eller skjuta.
+
+[da]
+
+MENU_TITLE = %s\d - \wSpiller Blacklist
+MENU_STATUS = \r[BLACKLIST]
+MENU_NO_PLAYERS = Ingen spillere fundet
+MSG_ADDED = Spiller &x04%s &x01tilføjet til &x04blacklist&x01.
+MSG_REMOVED = Spiller &x04%s &x01fjernet fra &x04blacklist&x01.
+MSG_PUNISHMENT = Du er på blacklist og kan ikke bevæge dig eller skyde.
+
+[pl]
+
+MENU_TITLE = %s\d - \wCzarna Lista Graczy
+MENU_STATUS = \r[CZARNA LISTA]
+MENU_NO_PLAYERS = Nie znaleziono graczy
+MSG_ADDED = Gracz &x04%s &x01dodany do &x04czarnej listy&x01.
+MSG_REMOVED = Gracz &x04%s &x01usunięty z &x04czarnej listy&x01.
+MSG_PUNISHMENT = Jesteś na czarnej liście i nie możesz się poruszać ani strzelać.
+
+[nl]
+
+MENU_TITLE = %s\d - \wZwarte Lijst van Spelers
+MENU_STATUS = \r[ZWARTE LIJST]
+MENU_NO_PLAYERS = Geen spelers gevonden
+MSG_ADDED = Speler &x04%s &x01toegevoegd aan &x04zwarte lijst&x01.
+MSG_REMOVED = Speler &x04%s &x01verwijderd van &x04zwarte lijst&x01.
+MSG_PUNISHMENT = Je staat op de zwarte lijst en kunt niet bewegen of schieten.
+
+[cz]
+
+MENU_TITLE = %s\d - \wČerná Listina Hráčů
+MENU_STATUS = \r[ČERNÁ LISTINA]
+MENU_NO_PLAYERS = Žádní hráči nenalezeni
+MSG_ADDED = Hráč &x04%s &x01přidán na &x04černou listinu&x01.
+MSG_REMOVED = Hráč &x04%s &x01odstraněn z &x04černé listiny&x01.
+MSG_PUNISHMENT = Jsi na černé listině a nemůžeš se hýbat ani střílet.
+
+[fi]
+
+MENU_TITLE = %s\d - \wPelaajien Musta Lista
+MENU_STATUS = \r[MUSTA LISTA]
+MENU_NO_PLAYERS = Pelaajia ei löytynyt
+MSG_ADDED = Pelaaja &x04%s &x01lisätty &x04mustalle listalle&x01.
+MSG_REMOVED = Pelaaja &x04%s &x01poistettu &x04mustalta listalta&x01.
+MSG_PUNISHMENT = Olet mustalla listalla etkä voi liikkua tai ampua.
+
+[bg]
+
+MENU_TITLE = %s\d - \wЧерен Списък на Играчи
+MENU_STATUS = \r[ЧЕРЕН СПИСЪК]
+MENU_NO_PLAYERS = Няма намерени играчи
+MSG_ADDED = Играч &x04%s &x01добавен в &x04черния списък&x01.
+MSG_REMOVED = Играч &x04%s &x01премахнат от &x04черния списък&x01.
+MSG_PUNISHMENT = В черния списък си и не можеш да се движиш или стреляш.
+
+[hu]
+
+MENU_TITLE = %s\d - \wJátékos Feketelista
+MENU_STATUS = \r[FEKETELISTA]
+MENU_NO_PLAYERS = Nem található játékos
+MSG_ADDED = Játékos &x04%s &x01hozzáadva a &x04feketelistához&x01.
+MSG_REMOVED = Játékos &x04%s &x01eltávolítva a &x04feketelistáról&x01.
+MSG_PUNISHMENT = Feketelistán vagy, nem mozoghatsz és nem lőhetsz.
+
+[lt]
+
+MENU_TITLE = %s\d - \wŽaidėjų Juodasis Sąrašas
+MENU_STATUS = \r[JUODASIS SĄRAŠAS]
+MENU_NO_PLAYERS = Žaidėjų nerasta
+MSG_ADDED = Žaidėjas &x04%s &x01pridėtas prie &x04juodojo sąrašo&x01.
+MSG_REMOVED = Žaidėjas &x04%s &x01pašalintas iš &x04juodojo sąrašo&x01.
+MSG_PUNISHMENT = Esi juodajame sąraše ir negali judėti ar šaudyti.
+
+[sk]
+
+MENU_TITLE = %s\d - \wČierna Listina Hráčov
+MENU_STATUS = \r[ČIERNA LISTINA]
+MENU_NO_PLAYERS = Žiadni hráči nenájdení
+MSG_ADDED = Hráč &x04%s &x01pridaný na &x04čiernu listinu&x01.
+MSG_REMOVED = Hráč &x04%s &x01odstránený z &x04čiernej listiny&x01.
+MSG_PUNISHMENT = Si na čiernej listine a nemôžeš sa hýbať ani strieľať.
+
+[mk]
+
+MENU_TITLE = %s\d - \wЦрна Листа на Играчи
+MENU_STATUS = \r[ЦРНА ЛИСТА]
+MENU_NO_PLAYERS = Не се пронајдени играчи
+MSG_ADDED = Играч &x04%s &x01додаден на &x04црната листа&x01.
+MSG_REMOVED = Играч &x04%s &x01отстранет од &x04црната листа&x01.
+MSG_PUNISHMENT = На црната лиsta си и не можеш да се движиш или пукаш.
+
+[hr]
+
+MENU_TITLE = %s\d - \wCrna Lista Igrača
+MENU_STATUS = \r[CRNA LISTA]
+MENU_NO_PLAYERS = Nema pronađenih igrača
+MSG_ADDED = Igrač &x04%s &x01dodan na &x04crnu listu&x01.
+MSG_REMOVED = Igrač &x04%s &x01uklonjen s &x04crne liste&x01.
+MSG_PUNISHMENT = Na crnoj si listi i ne možeš se kretati niti pucati.
+
+[bs]
+
+MENU_TITLE = %s\d - \wCrna Lista Igrača
+MENU_STATUS = \r[CRNA LISTA]
+MENU_NO_PLAYERS = Nema pronađenih igrača
+MSG_ADDED = Igrač &x04%s &x01dodan na &x04crnu listu&x01.
+MSG_REMOVED = Igrač &x04%s &x01uklonjen sa &x04crne liste&x01.
+MSG_PUNISHMENT = Na crnoj si listi i ne možeš se kretati niti pucati.
+
+[ru]
+
+MENU_TITLE = %s\d - \wЧёрный Список Игроков
+MENU_STATUS = \r[ЧЁРНЫЙ СПИСОК]
+MENU_NO_PLAYERS = Игроки не найдены
+MSG_ADDED = Игрок &x04%s &x01добавлен в &x04чёрный список&x01.
+MSG_REMOVED = Игрок &x04%s &x01удалён из &x04чёрного списка&x01.
+MSG_PUNISHMENT = Ты в чёрном списке и не можешь двигаться или стрелять.
+
+[cn]
+
+MENU_TITLE = %s\d - \w玩家黑名单
+MENU_STATUS = \r[黑名单]
+MENU_NO_PLAYERS = 未找到玩家
+MSG_ADDED = 玩家 &x04%s &x01已添加到 &x04黑名单&x01。
+MSG_REMOVED = 玩家 &x04%s &x01已从 &x04黑名单&x01移除。
+MSG_PUNISHMENT = 你在黑名单中，无法移动或射击。
+
+[al]
+
+MENU_TITLE = %s\d - \wLista e Zezë e Lojtarëve
+MENU_STATUS = \r[LISTA E ZEZË]
+MENU_NO_PLAYERS = Asnjë lojtar i gjetur
+MSG_ADDED = Lojtari &x04%s &x01u shtua në &x04listën e zezë&x01.
+MSG_REMOVED = Lojtari &x04%s &x01u hoq nga &x04lista e zezë&x01.
+MSG_PUNISHMENT = Je në listën e zezë dhe nuk mund të lëvizësh ose të gjuash.
