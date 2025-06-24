@@ -23,6 +23,9 @@ new Array:g_BlacklistArray;
 public plugin_init() {
 	register_plugin(PLUGIN, VERSION, AUTHOR);
 	
+	register_concmd("amx_blacklist", "AmxBlacklistCmd", ADMIN_IMMUNITY);
+	register_concmd("amx_unblacklist", "AmxRemoveBlacklistCmd", ADMIN_IMMUNITY);
+
 	register_clcmd("say /blacklist", "cmdBlacklistMenu", ADMIN_IMMUNITY);
 	register_clcmd("say_team /blacklist", "cmdBlacklistMenu", ADMIN_IMMUNITY);
 	
@@ -87,12 +90,61 @@ public bool:is_blacklisted(id) {
 	return (index != -1);
 }
 
-public cmdBlacklistMenu(id, level, cid) {
+public AmxBlacklistCmd(id, level, cid) {
 	if (!cmd_access(id, level, cid, 1)) {
 		return PLUGIN_HANDLED;
 	}
 
-	//new menu = menu_create("\r[FWO] \d- \wPlayer Blacklist\d", "cmdBlacklistMenuHandler");
+	new szAuthId[64];
+	read_argv(1, szAuthId, 63);
+
+	// Add ID to Array g_BlacklistArray
+	if (ArrayFindString(g_BlacklistArray, szAuthId) == -1) {
+		ArrayPushString(g_BlacklistArray, szAuthId);
+	}
+
+	// Apply punishment if player is online
+	new player = find_player("c", szAuthId);
+	if (player && is_user_connected(player)) {
+		g_bIsFrozen[player] = true;
+		apply_punishment(player);
+	}
+
+	CC_SendMessage(0, "%l", "AMX_BLACKLISTED", szAuthId);
+
+	return PLUGIN_HANDLED;
+}
+
+public AmxRemoveBlacklistCmd(id, level, cid) {
+	if (!cmd_access(id, level, cid, 1)) {
+		return PLUGIN_HANDLED;
+	}
+
+	new szAuthId[64];
+	read_argv(1, szAuthId, 63);
+
+	// Remove ID from Array g_BlacklistArray
+	new index = ArrayFindString(g_BlacklistArray, szAuthId);
+	if (index != -1) {
+		ArrayDeleteItem(g_BlacklistArray, index);
+	}
+
+	// Remove punishment if player is online
+	new player = find_player("c", szAuthId);
+	if (player && is_user_connected(player)) {
+		g_bIsFrozen[player] = false;
+		apply_punishment(player);
+	}
+
+	CC_SendMessage(0, "%l", "AMX_UNBLACKLISTED", szAuthId);
+
+	return PLUGIN_HANDLED;
+}
+
+public cmdBlacklistMenu(id, level, cid) {
+	if (!cmd_access(id, level, cid, 1)) {
+		return PLUGIN_HANDLED;
+	}
 
 	new szMenuTitle[64];
 	formatex(szMenuTitle, charsmax(szMenuTitle), "%L", id, "MENU_TITLE", PREFIX_MENU);
