@@ -69,12 +69,7 @@ public plugin_end() {
 	save_blacklist();
 }
 
-public client_connect(id) {
-	g_bIsFrozen[id] = false;
-	check_blacklist(id);
-}
-
-public client_disconnected(id) {
+public client_putinserver(id) {
 	g_bIsFrozen[id] = false;
 	check_blacklist(id);
 }
