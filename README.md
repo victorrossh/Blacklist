@@ -21,18 +21,23 @@ The blacklist is managed in-memory using an Array for efficiency, with the list 
 - **Dynamic Menu**: Displays all online players, with an indicator (`[Blacklisted]`) for those currently on the blacklist.
 - **In-Memory Storage**: Blacklist is stored in memory during gameplay, improving performance by minimizing disk I/O operations.
 - **Persistent Storage**: SteamIDs are saved to `addons/amxmodx/configs/blacklist/blacklist.txt` at the end of each map and loaded at the start of the next.
+- **AMX Commands**: Admins with `ADMIN_IMMUNITY` can use console commands to manage the blacklist:
+	- `amx_blacklist <SteamID>`: Adds a SteamID to the blacklist, applying punishment immediately if the player is online.
+	- `amx_unblacklist <SteamID>`: Removes a SteamID from the blacklist, lifting the punishment immediately if the player is online.
 - **Configurable Punishments**:
-  - `bl_block_chat` (default: 1): Toggles chat blocking for blacklisted players.
-  - `bl_block_radio` (default: 1): Toggles radio command blocking for blacklisted players.
-  - `bl_block_voice` (default: 1): Toggles voice communication blocking for blacklisted players.
+	- `bl_block_chat` (default: 1): Toggles chat blocking for blacklisted players.
+	- `bl_block_radio` (default: 1): Toggles radio command blocking for blacklisted players.
+	- `bl_block_voice` (default: 1): Toggles voice communication blocking for blacklisted players.
 
 ## Usage
 
 ### Commands
 - `/blacklist` (or `say /blacklist`, `say_team /blacklist`): Opens a menu for admins with `ADMIN_IMMUNITY` to add or remove players from the blacklist.
-  - The menu lists all online players.
-  - Selecting a player toggles their blacklist status (adds if not blacklisted, removes if already blacklisted).
-  - Confirmation messages are shown (`Added to blacklist` or `Removed from blacklist`).
+	- The menu lists all online players.
+	- Selecting a player toggles their blacklist status (adds if not blacklisted, removes if already blacklisted).
+	- Confirmation messages are shown (`Added to blacklist` or `Removed from blacklist`).
+- `amx_blacklist <SteamID>`: Adds the specified SteamID to the blacklist. If the player is online, punishment (freeze, chat block, etc.) is applied instantly. Works for offline players too.
+- `amx_unblacklist <SteamID>`: Removes the specified SteamID from the blacklist. If the player is online, the punishment is lifted immediately. Works for offline players too.
 
 ### Blacklist File
 - The blacklist is stored in `addons/amxmodx/configs/blacklist/blacklist.txt`.
@@ -46,6 +51,8 @@ The blacklist is managed in-memory using an Array for efficiency, with the list 
 4. Player1 is immediately frozen, their chat and voice are blocked, and they cannot use the C4.
 5. At the end of the map, Player1's SteamID is saved to `blacklist.txt`.
 6. On the next map, Player1 joins and is automatically frozen again.
+7. Alternatively, an admin uses `amx_blacklist "STEAM_0:1:12345678"` in the console to blacklist an offline player. When that player joins, they are frozen immediately.
+8. To remove the blacklist, the admin uses `amx_unblacklist "STEAM_0:1:12345678"`, and if the player is online, the restrictions are lifted instantly.
 
 ## Authors
 
