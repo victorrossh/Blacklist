@@ -16,7 +16,7 @@
 new const CONFIG_FOLDER[] = "addons/amxmodx/configs/blacklist/blacklist.txt";
 
 // Register CVARs for blacklist
-new g_iCvarBlockChat, g_iCvarBlockRadio, g_iCvarBlockVoice;
+new g_iCvarBlockChat, g_iCvarBlockRadio, g_iCvarBlockVoice, g_iCvarBlockName;
 new bool:g_bIsFrozen[33];
 new Array:g_BlacklistArray;
 
@@ -40,6 +40,7 @@ public plugin_init() {
 	g_iCvarBlockChat = register_cvar("bl_block_chat", "1");
 	g_iCvarBlockRadio = register_cvar("bl_block_radio", "1");
 	g_iCvarBlockVoice = register_cvar("bl_block_voice", "1");
+	g_iCvarBlockName = register_cvar("bl_block_name", "1");
 
 	RegisterHam(Ham_Spawn, "player", "OnPlayerSpawn", true);
 	RegisterHam(Ham_AddPlayerItem, "player", "OnAddPlayerItem", true);
@@ -344,7 +345,7 @@ public BlockChangeName(id) {
 	
 	if (szOldName[0]) {
 		get_user_info(id, name, szNewName, charsmax(szNewName));
-		if (!equal(szOldName, szNewName) && is_blacklisted(id)) {
+		if (!equal(szOldName, szNewName) && is_blacklisted(id) && get_pcvar_num(g_iCvarBlockName)) {
 			set_user_info(id, name, szOldName);
 			return FMRES_HANDLED;
 		}
