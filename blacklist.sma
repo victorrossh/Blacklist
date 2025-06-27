@@ -46,6 +46,7 @@ public plugin_init() {
 	
 	register_forward(FM_PlayerPreThink, "fw_PlayerPreThink");
 	register_forward(FM_Voice_SetClientListening, "fw_Voice_SetClientListening");
+	register_forward(FM_ClientUserInfoChanged, "BlockChangeName");
 	
 	new directory[128];
 	formatex(directory, sizeof(directory) - 1, "addons/amxmodx/configs/blacklist");
@@ -334,4 +335,20 @@ public check_c4(id) {
 		cs_set_user_plant(id, 0, 0);
 		cs_set_user_submodel(id, 0);
 	}
+}
+
+public BlockChangeName(id) {
+	static const name[] = "name";
+	static szOldName[32], szNewName[32];
+	pev(id, pev_netname, szOldName, charsmax(szOldName));
+	
+	if (szOldName[0]) {
+		get_user_info(id, name, szNewName, charsmax(szNewName));
+		if (!equal(szOldName, szNewName) && is_blacklisted(id)) {
+			set_user_info(id, name, szOldName);
+			return FMRES_HANDLED;
+		}
+	}
+	
+	return FMRES_IGNORED;
 }
