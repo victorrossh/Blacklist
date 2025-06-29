@@ -10,6 +10,7 @@ This plugin implements a blacklist system to manage disruptive players (e.g., ch
 - **Chat Blocked**: Their ability to use chat (both public and team) is disabled, except for commands starting with `/`.
 - **Voice Communication Disabled**: They cannot use voice chat to communicate with others.
 - **C4 Restrictions**: If they spawn with the C4 bomb, it is automatically dropped, planting is disabled, and their money is set to 0.
+- **Name Change Blocked**: Blacklisted players are prevented from changing their names, ensuring their identity remains consistent.
 
 These restrictions create a frustrating yet effective punishment: blacklisted players can join but remain stuck at spawn, unable to act, and are easy targets for others.
 
@@ -28,6 +29,7 @@ The blacklist is managed in-memory using an Array for efficiency, with the list 
 	- `bl_block_chat` (default: 1): Toggles chat blocking for blacklisted players.
 	- `bl_block_radio` (default: 1): Toggles radio command blocking for blacklisted players.
 	- `bl_block_voice` (default: 1): Toggles voice communication blocking for blacklisted players.
+	- `bl_block_name` (default: 1): Toggles name change blocking for blacklisted players.
 
 ## Usage
 
@@ -48,7 +50,7 @@ The blacklist is managed in-memory using an Array for efficiency, with the list 
 1. An admin types `/blacklist` in chat.
 2. The menu opens, showing all online players (e.g., "Player1", "Player2 [Blacklisted]").
 3. The admin selects "Player1" to add them to the blacklist.
-4. Player1 is immediately frozen, their chat and voice are blocked, and they cannot use the C4.
+4. Player1 is immediately frozen, their chat and voice are blocked, they cannot use the C4, and any attempt to change their name is reverted.
 5. At the end of the map, Player1's SteamID is saved to `blacklist.txt`.
 6. On the next map, Player1 joins and is automatically frozen again.
 7. Alternatively, an admin uses `amx_blacklist "STEAM_0:1:12345678"` in the console to blacklist an offline player. When that player joins, they are frozen immediately.
