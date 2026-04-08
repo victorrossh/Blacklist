@@ -69,23 +69,22 @@ public plugin_init() {
 public plugin_cfg() {
 	register_dictionary("black_list.txt");
 	
-	if(g_BlacklistArray == Invalid_Array) {
+	if(g_BlacklistArray == Invalid_Array)
 		g_BlacklistArray = ArrayCreate(32, 1);
-	}
+	
 	load_blacklist();
 }
 
 public plugin_end() {
 	save_blacklist();
 }
+
 // If someone wants to use a native to pull the blacklist menu into another menu.
-/*public plugin_natives()
-{
+/*public plugin_natives() {
 	register_native("get_menu_blacklist", "native_menu_blacklist");
 }
 
-public native_menu_blacklist(NumParams)
-{
+public native_menu_blacklist(NumParams) {
 	new id = get_param(1);
 	return cmdBlacklistMenu(id, 0, 0);
 }*/
@@ -107,17 +106,15 @@ public bool:is_blacklisted(id) {
 }
 
 public AmxBlacklistCmd(id, level, cid) {
-	if (!cmd_access(id, level, cid, 1)) {
+	if (!cmd_access(id, level, cid, 1))
 		return PLUGIN_HANDLED;
-	}
 
 	new szAuthId[64];
 	read_argv(1, szAuthId, 63);
 
 	// Add ID to Array g_BlacklistArray
-	if (ArrayFindString(g_BlacklistArray, szAuthId) == -1) {
+	if (ArrayFindString(g_BlacklistArray, szAuthId) == -1)
 		ArrayPushString(g_BlacklistArray, szAuthId);
-	}
 
 	// Apply punishment if player is online
 	new player = find_player("c", szAuthId);
@@ -125,25 +122,21 @@ public AmxBlacklistCmd(id, level, cid) {
 		g_bIsFrozen[player] = true;
 		apply_punishment(player);
 	}
-
 	CC_SendMessage(0, "%l", "AMX_BLACKLISTED", szAuthId);
-
 	return PLUGIN_HANDLED;
 }
 
 public AmxRemoveBlacklistCmd(id, level, cid) {
-	if (!cmd_access(id, level, cid, 1)) {
+	if (!cmd_access(id, level, cid, 1))
 		return PLUGIN_HANDLED;
-	}
 
 	new szAuthId[64];
 	read_argv(1, szAuthId, 63);
 
 	// Remove ID from Array g_BlacklistArray
 	new index = ArrayFindString(g_BlacklistArray, szAuthId);
-	if (index != -1) {
+	if (index != -1)
 		ArrayDeleteItem(g_BlacklistArray, index);
-	}
 
 	// Remove punishment if player is online
 	new player = find_player("c", szAuthId);
@@ -151,16 +144,13 @@ public AmxRemoveBlacklistCmd(id, level, cid) {
 		g_bIsFrozen[player] = false;
 		apply_punishment(player);
 	}
-
 	CC_SendMessage(0, "%l", "AMX_UNBLACKLISTED", szAuthId);
-
 	return PLUGIN_HANDLED;
 }
 
 public cmdBlacklistMenu(id, level, cid) {
-	if (!cmd_access(id, level, cid, 1)) {
+	if (!cmd_access(id, level, cid, 1))
 		return PLUGIN_HANDLED;
-	}
 
 	new szMenuTitle[64];
 	formatex(szMenuTitle, charsmax(szMenuTitle), "%L", id, "MENU_TITLE", PREFIX_MENU);
@@ -186,7 +176,6 @@ public cmdBlacklistMenu(id, level, cid) {
 		formatex(szNoPlayers, charsmax(szNoPlayers), "%L", id, "MENU_NO_PLAYERS");
 		menu_additem(menu, szNoPlayers, "");
 	}
-	
 	menu_display(id, menu, 0);
 	return PLUGIN_HANDLED;
 }
@@ -245,9 +234,8 @@ public fw_PlayerPreThink(id) {
 	if (g_bIsFrozen[id] && is_user_alive(id)) {
 		new button = get_user_button(id);
 
-		if (button & IN_ATTACK | IN_ATTACK2) {
+		if (button & IN_ATTACK | IN_ATTACK2)
 			return FMRES_SUPERCEDE;
-		}
 	}
 	return FMRES_IGNORED;
 }
@@ -313,35 +301,31 @@ public OnAddPlayerItem(id, weapon) {
 	new classname[32];
 	entity_get_string(weapon, EV_SZ_classname, classname, charsmax(classname));
 
-	if (equal(classname, "weapon_c4")) {
+	if (equal(classname, "weapon_c4"))
 		set_task(0.2, "check_c4", id);
-	}
 	return HAM_IGNORED;
 }
 
 public check_blacklist(id) {
 	g_bIsFrozen[id] = is_blacklisted(id);
-	if (g_bIsFrozen[id] && is_user_alive(id)) {
+	if (g_bIsFrozen[id] && is_user_alive(id))
 		apply_punishment(id);
-	}
 }
 
 public apply_punishment(id) {
 	if (g_bIsFrozen[id] && is_user_alive(id)) {
 		set_pev(id, pev_flags, pev(id, pev_flags) | FL_FROZEN);
 		CC_SendMessage(id, "%L", id, "MSG_PUNISHMENT");
-	} else {
+	} else
 		set_pev(id, pev_flags, pev(id, pev_flags) & ~FL_FROZEN);
-	}
 }
 
 public manage_blacklist(id, bool:should_be_blacklisted) {
 	should_be_blacklisted ? blacklist_player(id) : remove_blacklist(id);
 	
 	g_bIsFrozen[id] = should_be_blacklisted;
-	if (is_user_alive(id)) {
+	if (is_user_alive(id))
 		apply_punishment(id);
-	}
 }
 
 public load_blacklist() {
@@ -351,9 +335,8 @@ public load_blacklist() {
 		while (!feof(file)) {
 			fgets(file, steamid, charsmax(steamid));
 			trim(steamid);
-			if (steamid[0]) {
+			if (steamid[0])
 				ArrayPushString(g_BlacklistArray, steamid);
-			}
 		}
 		fclose(file);
 	}
@@ -385,9 +368,8 @@ public remove_blacklist(id) {
 	get_user_authid(id, steamid, charsmax(steamid));
 	
 	new index = ArrayFindString(g_BlacklistArray, steamid);
-	if(index != -1) {
+	if(index != -1)
 		ArrayDeleteItem(g_BlacklistArray, index);
-	}
 }
 
 public check_c4(id) {
