@@ -77,10 +77,21 @@ public plugin_cfg() {
 public plugin_end() {
 	save_blacklist();
 }
+// If someone wants to use a native to pull the blacklist menu into another menu.
+/*public plugin_natives()
+{
+	register_native("get_menu_blacklist", "native_menu_blacklist");
+}
+
+public native_menu_blacklist(NumParams)
+{
+	new id = get_param(1);
+	return cmdBlacklistMenu(id, 0, 0);
+}*/
 
 public client_putinserver(id) {
 	g_bIsFrozen[id] = false;
-	check_blacklist(id);
+	set_task(0.1, "check_blacklist", id);
 }
 
 public bool:is_blacklisted(id) {
@@ -269,10 +280,20 @@ public cmd_block_change_team(id) {
 	if (!is_user_connected(id))
 		return PLUGIN_CONTINUE;
 
-	if (g_bIsFrozen[id] && get_pcvar_num(g_iCvarBlockChangeTeam))
-		return PLUGIN_HANDLED;
-		
-	return PLUGIN_CONTINUE;
+	if (!g_bIsFrozen[id] || !get_pcvar_num(g_iCvarBlockChangeTeam))
+		return PLUGIN_CONTINUE;
+
+	new command[16];
+	read_argv(0, command, charsmax(command));
+
+	new CsTeams:team = cs_get_user_team(id);
+	if (equal(command, "joinclass"))
+		return PLUGIN_CONTINUE;
+
+	if (team == CS_TEAM_UNASSIGNED || team == CS_TEAM_SPECTATOR)
+		return PLUGIN_CONTINUE;
+
+	return PLUGIN_HANDLED;
 }
 
 public OnPlayerSpawn(id) {
@@ -280,7 +301,7 @@ public OnPlayerSpawn(id) {
 		return HAM_IGNORED;
 	
 	set_task(0.1, "check_c4", id);
-	check_blacklist(id);
+	set_task(0.1, "check_blacklist", id);
 	return HAM_IGNORED;
 }
 
