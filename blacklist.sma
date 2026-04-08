@@ -3,6 +3,7 @@
 #include <cstrike>
 #include <hamsandwich>
 #include <engine>
+#include <fakemeta>
 #include <cromchat2>
 
 #define PLUGIN "Blacklist Menu"
