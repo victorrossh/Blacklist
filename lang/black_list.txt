@@ -7,7 +7,7 @@ MENU_STATUS = \r[BLACKLIST]
 MENU_NO_PLAYERS = No players found
 MSG_ADDED = Player &x04%s &x01added to &x04blacklist&x01.
 MSG_REMOVED = Player &x04%s &x01removed from &x04blacklist&x01.
-MSG_PUNISHMENT = You are in the &x03blacklist &x01and all interactions have been blocked.
+MSG_PUNISHMENT = You are in the &x04blacklist &x01and all interactions have been blocked.
 
 [bp]
 
@@ -84,7 +84,7 @@ MENU_STATUS = \r[BLACKLIST]
 MENU_NO_PLAYERS = Oyuncu bulunamadı
 MSG_ADDED = Oyuncu &x04%s &x01blacklist'e &x04eklendi&x01.
 MSG_REMOVED = Oyuncu &x04%s &x01blacklist'ten &x04çıkarıldı&x01.
-MSG_PUNISHMENT = &x04blacklist&x01desin ve tüm etkileşimler engellendi.
+MSG_PUNISHMENT = &x04blacklist &x01desin ve tüm etkileşimler engellendi.
 
 [fr]
 
