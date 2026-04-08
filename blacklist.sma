@@ -16,7 +16,7 @@
 new const CONFIG_FOLDER[] = "addons/amxmodx/configs/blacklist/blacklist.txt";
 
 // Register CVARs for blacklist
-new g_iCvarBlockChat, g_iCvarBlockRadio, g_iCvarBlockVoice, g_iCvarBlockName;
+new g_iCvarBlockChat, g_iCvarBlockRadio, g_iCvarBlockVoice, g_iCvarBlockName, g_iCvarBlockKill, g_iCvarBlockChangeTeam;
 new bool:g_bIsFrozen[33];
 new Array:g_BlacklistArray;
 
@@ -36,11 +36,17 @@ public plugin_init() {
 	register_clcmd("radio2", "cmd_radio");
 	register_clcmd("radio3", "cmd_radio");
 
+	register_clcmd("chooseteam", "cmd_block_change_team");
+	register_clcmd("jointeam", "cmd_block_change_team");
+	register_clcmd("joinclass", "cmd_block_change_team");
+
 	// Register CVARs for blacklist
 	g_iCvarBlockChat = register_cvar("bl_block_chat", "1");
 	g_iCvarBlockRadio = register_cvar("bl_block_radio", "1");
 	g_iCvarBlockVoice = register_cvar("bl_block_voice", "1");
 	g_iCvarBlockName = register_cvar("bl_block_name", "1");
+	g_iCvarBlockKill = register_cvar("bl_block_kill", "1");
+	g_iCvarBlockChangeTeam = register_cvar("bl_block_change_team", "1");
 
 	RegisterHam(Ham_Spawn, "player", "OnPlayerSpawn", true);
 	RegisterHam(Ham_AddPlayerItem, "player", "OnAddPlayerItem", true);
@@ -48,6 +54,7 @@ public plugin_init() {
 	register_forward(FM_PlayerPreThink, "fw_PlayerPreThink");
 	register_forward(FM_Voice_SetClientListening, "fw_Voice_SetClientListening");
 	register_forward(FM_ClientUserInfoChanged, "BlockChangeName");
+	register_forward(FM_ClientKill, "fw_BlockClientKill");
 	
 	new directory[128];
 	formatex(directory, sizeof(directory) - 1, "addons/amxmodx/configs/blacklist");
@@ -233,6 +240,41 @@ public fw_PlayerPreThink(id) {
 	return FMRES_IGNORED;
 }
 
+public BlockChangeName(id) {
+	static const name[] = "name";
+	static szOldName[32], szNewName[32];
+	pev(id, pev_netname, szOldName, charsmax(szOldName));
+	
+	if (szOldName[0]) {
+		get_user_info(id, name, szNewName, charsmax(szNewName));
+		if (!equal(szOldName, szNewName) && is_blacklisted(id) && get_pcvar_num(g_iCvarBlockName)) {
+			set_user_info(id, name, szOldName);
+			return FMRES_HANDLED;
+		}
+	}
+	return FMRES_IGNORED;
+}
+
+public fw_BlockClientKill(id) { 
+	if (!is_user_alive(id)) 
+		return FMRES_IGNORED; 
+
+	if (g_bIsFrozen[id] && get_pcvar_num(g_iCvarBlockKill))
+		return FMRES_SUPERCEDE;
+
+	return FMRES_IGNORED;
+}
+
+public cmd_block_change_team(id) {
+	if (!is_user_connected(id))
+		return PLUGIN_CONTINUE;
+
+	if (g_bIsFrozen[id] && get_pcvar_num(g_iCvarBlockChangeTeam))
+		return PLUGIN_HANDLED;
+		
+	return PLUGIN_CONTINUE;
+}
+
 public OnPlayerSpawn(id) {
 	if (!is_user_connected(id))
 		return HAM_IGNORED;
@@ -336,20 +378,4 @@ public check_c4(id) {
 		cs_set_user_plant(id, 0, 0);
 		cs_set_user_submodel(id, 0);
 	}
-}
-
-public BlockChangeName(id) {
-	static const name[] = "name";
-	static szOldName[32], szNewName[32];
-	pev(id, pev_netname, szOldName, charsmax(szOldName));
-	
-	if (szOldName[0]) {
-		get_user_info(id, name, szNewName, charsmax(szNewName));
-		if (!equal(szOldName, szNewName) && is_blacklisted(id) && get_pcvar_num(g_iCvarBlockName)) {
-			set_user_info(id, name, szOldName);
-			return FMRES_HANDLED;
-		}
-	}
-	
-	return FMRES_IGNORED;
 }
